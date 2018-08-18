@@ -47,3 +47,5 @@
     'auto_install': False,
     'application': True,
 }
+
+# 'education_theme',
