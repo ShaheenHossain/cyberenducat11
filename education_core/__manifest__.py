@@ -1,9 +1,9 @@
 {
     'name': 'eEducation ERP Core',
     'version': '11.0.1.0.1',
-    'summary': """Core Module of Educational ERP""",
-    'description': 'Core Module of Educational ERP',
-    'category': 'Educational',
+    'summary': """Core Module of Education ERP""",
+    'description': 'Core Module of Education ERP',
+    'category': 'Education',
     'author': 'Md. Shaheen Hossain',
     'company': 'Eagle ERP ',
     'website': "http://www.eagle-it-services.com",
