@@ -7,7 +7,7 @@
     'author': 'Md. Shaheen Hossain',
     'company': 'Eagle ERP ',
     'website': "http://www.eagle-it-services.com",
-    'depends': ['base', 'mail', 'stock', 'education_theme', 'hr_recruitment'],
+    'depends': ['base', 'mail', 'stock', 'hr_recruitment'],
     'data': [
         'security/education_security.xml',
         'security/ir.model.access.csv',
