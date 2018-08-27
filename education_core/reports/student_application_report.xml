@@ -29,7 +29,7 @@
                                                         <strong><span>Father's Name:</span></strong>
                                                     </td>
                                                     <td>
-                                                        <span t-if="o.father_name" t-field="o.name"/>
+                                                        <span t-if="o.father_name" t-field="o.father_name"/>
                                                     </td>
                                                 </tr>
                                                 <tr>
