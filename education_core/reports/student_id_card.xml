@@ -25,6 +25,7 @@
                                                     <br/>
                                                     <span t-raw="'%s' %  res_company.partner_id.street2 if  res_company.partner_id.street2  else ''"/>
                                                     <span t-raw="'%s' %  res_company.partner_id.city if  res_company.partner_id.city  else ''"/>
+                                                    <span t-field="o.nationality"/>
                                                     <span t-raw="'%s' %  res_company.partner_id.state_id.name if  res_company.partner_id.state_id.name  else ''"/>
                                                     <span t-raw="'%s' %  res_company.partner_id.zip if  res_company.partner_id.zip  else ''"/>
                                                     <br/>
