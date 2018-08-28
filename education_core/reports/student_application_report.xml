@@ -14,6 +14,17 @@
                                         <div class="col-xs-8" style="margin:auto">
                                             <p style="padding-top:20px;"/>
                                             <table class="table table-condensed">
+                                                
+                                                <tr>
+                                                    <td>
+                                                        <strong><span>Student Application No. :</span></strong>
+                                                    </td>
+                                                    <td>
+                                                        <span t-if="o.application_no" t-field="o.application_no"/>
+                                                    </td>
+                                                </tr>
+                                                                                             
+                                                
                                                 <tr>
                                                     <td>
                                                         <strong><span>Student's Name:</span></strong>
@@ -68,8 +79,8 @@
                                         </div>
                                         <div class="col-xs-4" style="margin:auto">
                                             <p style="text-align:center;padding-top:20px;"><strong>DATE : <span t-field="o.admission_date"/> </strong></p>
-                                            <img t-if="not o.image" t-att-src="'/education_core/static/src/img/placeholder.jpg'" height="120" border="1" width="120"/>
-                                            <img t-if="o.image" t-att-src="'data:image/png;base64,%s' % to_text(o.image)" height="120" border="1" width="80"/>
+                                            <img t-if="not o.image" t-att-src="'/education_core/static/src/img/placeholder.jpg'" height="150" border="1" width="auto"/>
+                                            <img t-if="o.image" t-att-src="'data:image/png;base64,%s' % to_text(o.image)" height="150" border="1" width="auto"/>
                                         </div>
                                     </div>
                                     <div class="col-xs-12" style="margin:auto">
