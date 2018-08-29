@@ -45,7 +45,7 @@ class StudentApplication(models.Model):
     company_id = fields.Many2one('res.company', string='Company', default=lambda self: self.env.user.company_id)
     email = fields.Char(string="Email", help="Enter E-mail id for contact purpose")
 	
-	student_id_gr = fields.Char(string="Student ID GR", help="Enter id for contact purpose")
+    student_id_gr = fields.Char(string="Student ID GR", help="Enter id for contact purpose")
 	
     phone = fields.Char(string="Phone", help="Enter Phone no. for contact purpose")
     mobile = fields.Char(string="Student Mobile", required=False, help="Enter Mobile num for contact purpose")
