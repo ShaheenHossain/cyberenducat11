@@ -43,7 +43,9 @@ class StudentApplication(models.Model):
     application_no = fields.Char(string='Application  No', required=True, copy=False, readonly=True,
                        index=True, default=lambda self: _('New'))
     company_id = fields.Many2one('res.company', string='Company', default=lambda self: self.env.user.company_id)
-    studen_id = fields.Char(string="GR/ID No.", help="Enter Student id for Identyfy the student")
+    # student Id or GR No. inserted Newly by shaheen 29.08.18
+    student_gr_id = fields.Char(string="Student GR/ID No.", help="Enter Student id for Identyfy the student")
+    
     email = fields.Char(string="Email", help="Enter E-mail id for contact purpose")
     phone = fields.Char(string="Phone", help="Enter Phone no. for contact purpose")
     mobile = fields.Char(string="Student Mobile", required=False, help="Enter Mobile num for contact purpose")
@@ -52,17 +54,16 @@ class StudentApplication(models.Model):
 
     house_no. = fields.Char(string='House No.', help="Enter the House No.")
     road_no. = fields.Char(string='Road No.', help="Enter the Road No.")
+    police_station = fields.Char(string='P.S', help="Enter the Police Station name")
     city = fields.Char(string='City', help="Enter the City name")
-    post_code = fields.Char(string='Postal code', help="Enter the Postal Code")
-    district = fields.Char(string='District', help="Enter the District name")
     country_id = fields.Many2one('res.country', string='Country', ondelete='restrict',default=19,
                                  help="Select the Country")
     is_same_address = fields.Boolean(string="Permanent Address same as above", default=True,
                                      help="Tick the field if the Present and permanent address is same")
     village = fields.Char(string='Village/House No.', help="Enter the Village Name")
-    police_station = fields.Char(string='Police Station/Subdistrict', help="Enter the Police Station/Subdistrict")
-    post_code_p_address = fields.Char(string='Postal code P Address', help="Enter the Postal Code P addrress")
-    per_district = fields.Char(string='City', help="Enter the City name")
+    post_office = fields.Char(string='Post Office', help="Enter the Post Office Name")
+    police_station_per = fields.Char(string='Police Station/Subdistrict', help="Enter the Police Station/Subdistrict")
+    district_per = fields.Char(string='District', help="Enter the City name")
     per_country_id = fields.Many2one('res.country', string='Country', ondelete='restrict',default=19,
                                      help="Select the Country")
     date_of_birth = fields.Date(string="Date Of birth", required=False, help="Enter your DOB")
@@ -147,19 +148,33 @@ class StudentApplication(models.Model):
                 'mother_name': rec.mother_name.id,
                 'guardian_relation': rec.guardian_relation.id,
                 'guardian_name': rec.guardian_name.id,
-                'street': rec.street,
-                'street2': rec.street2,
+				'house_no.': rec.house_no.,
+                'road_no.': rec.road_no.,
+				'police_station': rec.police_station,
                 'city': rec.city,
-                'state_id': rec.state_id.id,
                 'country_id': rec.country_id.id,
-                'zip': rec.zip,
+                'student_gr_id': rec.student_gr_id,
                 'is_same_address': rec.is_same_address,
-                'per_street': rec.per_street,
-                'per_street2': rec.per_street2,
-                'per_city': rec.per_city,
-                'per_state_id': rec.per_state_id.id,
-                'per_country_id': rec.per_country_id.id,
-                'per_zip': rec.per_zip,
+				
+                'village': rec.village,
+				'post_office': rec.post_office,
+                'police_station_per': rec.police_station_per,
+                'district_per': rec.district_per,
+                                
+                #'street': rec.street,
+                #'street2': rec.street2,
+                #'city': rec.city,
+                #'state_id': rec.state_id.id,
+                #'country_id': rec.country_id.id,
+                #'zip': rec.zip,
+                #'is_same_address': rec.is_same_address,
+                #'per_street': rec.per_street,
+                #'per_street2': rec.per_street2,
+                #'per_city': rec.per_city,
+                #'per_state_id': rec.per_state_id.id,
+                #'per_country_id': rec.per_country_id.id,
+                #'per_zip': rec.per_zip,
+                
                 'gender': rec.gender,
                 'date_of_birth': rec.date_of_birth,
                 'blood_group': rec.blood_group,
@@ -169,11 +184,11 @@ class StudentApplication(models.Model):
                 'phone': rec.phone,
                 'image': rec.image,
                 'is_student': True,
-                'medium': rec.medium.id,
+                #'medium': rec.medium.id,
                 'religion_id': rec.religion_id.id,
-                'caste_id': rec.caste_id.id,
-                'sec_lang': rec.sec_lang.id,
-                'mother_tongue': rec.mother_tongue.id,
+                #'caste_id': rec.caste_id.id,
+                #'sec_lang': rec.sec_lang.id,
+                #'mother_tongue': rec.mother_tongue.id,
                 'admission_class': rec.admission_class.id,
                 'company_id': rec.company_id.id,
             }
@@ -181,12 +196,12 @@ class StudentApplication(models.Model):
                 pass
             else:
                 values.update({
-                    'per_street': rec.street,
-                    'per_street2': rec.street2,
-                    'per_city': rec.city,
-                    'per_state_id': rec.state_id.id,
+                    'village': rec.village,
+                    'post_office': rec.post_office,
+                    'police_station_per': rec.police_station_per,
+                    'district_per': rec.district_per,
                     'per_country_id': rec.country_id.id,
-                    'per_zip': rec.zip,
+
                 })
 
             student = self.env['education.student'].create(values)
