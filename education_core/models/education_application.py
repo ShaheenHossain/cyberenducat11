@@ -30,12 +30,12 @@ class StudentApplication(models.Model):
     image = fields.Binary(string='Image', help="Provide the image of the Student")
     academic_year_id = fields.Many2one('education.academic.year', string='Academic Year',
                                        help="Choose Academic year for which the admission is choosing")
-    #medium = fields.Many2one('education.medium', string="Medium", required=False,
-    #                         help="Choose the Medium of class, like Bengali,English etc")
-    # sec_lang = fields.Many2one('education.medium', string="Second language",required=False,default=1,
-                               # domain=[('is_language', '=', True)],
-    #                           help="Choose the Second language")
-    #mother_tongue = fields.Many2one('education.medium', string="Mother Tongue",default=1,
+    medium = fields.Many2one('education.medium', string="Medium", required=False,
+                             help="Choose the Medium of class, like Bengali,English etc")
+     sec_lang = fields.Many2one('education.medium', string="Second language",required=False,default=1,
+                                domain=[('is_language', '=', True)],
+                               help="Choose the Second language")
+    mother_tongue = fields.Many2one('education.medium', string="Mother Tongue",default=1,
                                     #required=True, help="Enter Student's Mother Tongue")
     admission_class = fields.Many2one('education.class', string="Class", required=False,
                                       help="Enter Class to which the admission is seeking")
@@ -148,16 +148,16 @@ class StudentApplication(models.Model):
                 'mother_name': rec.mother_name.id,
                 'guardian_relation': rec.guardian_relation.id,
                 'guardian_name': rec.guardian_name.id,
-				'house_no.': rec.house_no.,
+		'house_no.': rec.house_no.,
                 'road_no.': rec.road_no.,
-				'police_station': rec.police_station,
+		'police_station': rec.police_station,
                 'city': rec.city,
                 'country_id': rec.country_id.id,
                 'student_gr_id': rec.student_gr_id,
                 'is_same_address': rec.is_same_address,
 				
                 'village': rec.village,
-				'post_office': rec.post_office,
+		'post_office': rec.post_office,
                 'police_station_per': rec.police_station_per,
                 'district_per': rec.district_per,
                                 
@@ -184,11 +184,11 @@ class StudentApplication(models.Model):
                 'phone': rec.phone,
                 'image': rec.image,
                 'is_student': True,
-                #'medium': rec.medium.id,
+                'medium': rec.medium.id,
                 'religion_id': rec.religion_id.id,
-                #'caste_id': rec.caste_id.id,
-                #'sec_lang': rec.sec_lang.id,
-                #'mother_tongue': rec.mother_tongue.id,
+                'caste_id': rec.caste_id.id,
+                'sec_lang': rec.sec_lang.id,
+                'mother_tongue': rec.mother_tongue.id,
                 'admission_class': rec.admission_class.id,
                 'company_id': rec.company_id.id,
             }
