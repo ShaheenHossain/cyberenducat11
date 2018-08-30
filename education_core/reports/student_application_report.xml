@@ -45,7 +45,7 @@
                                                         <strong><span>Guardian's Name:</span></strong>
                                                     </td>
                                                     <td>
-                                                        <span t-if="o.guardian_name" t-field="o.guardian_name.name"/>
+                                                        <span t-if="o.guardian_name" t-field="o.guardian_name"/>
                                                     </td>
                                                 </tr>
                                                 <tr>
