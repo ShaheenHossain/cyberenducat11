@@ -84,7 +84,7 @@
                             <field name="academic_year_id" required="1" attrs="{'readonly': [('state', '=', 'done')]}"/>
                             <field name="admission_date" attrs="{'readonly': [('state', '=', 'done')]}"/>
                             <field name="admission_class" attrs="{'readonly': [('state', '=', 'done')]}"/>
-                            <!--<field name="sec_lang" attrs="{'readonly': [('state', '=', 'done')]}"/>-->
+                            <field name="sec_lang" attrs="{'readonly': [('state', '=', 'done')]}"/>
                             <field name="medium" attrs="{'readonly': [('state', '=', 'done')]}"/>
                             <field name="company_id" groups="base.group_multi_company" attrs="{'readonly': [('state', '=', 'done')]}"/>
                             <field name="prev_school" attrs="{'readonly': [('state', '=', 'done')]}"/>
