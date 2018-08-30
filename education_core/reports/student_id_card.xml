@@ -1,61 +1,70 @@
-<?xml version="1.0" encoding="utf-8"?>
-<odoo>
-    <data>
-
-        <template id="report_student_id_card">
+<?xml version="1.0"?>
+<t t-name="education_core.report_student_id_card">
             <t t-call="web.html_container">
                 <t t-foreach="docs" t-as="o">
                     <t t-call="web.external_layout">
                         <div class="page">
-                            <br></br>
-                            <br></br>
-                            <br></br>
-                            <br></br>
-                            <div class="oe_structure"/>
-                            <div class="row">
-                                <div class="col-xs-2" style="margin:auto;">
-                                </div>
-                                <center>
-                                    <div class="col-xs-8" style="margin:auto">
-                                        <table class="table table-condensed" style="border: 3px solid black !important;">
-                                            <tr>
-                                                <td width="40%">
-                                                    <p style="text-align:center;padding-top:10px;">
-                                                        <img t-if="not o.image" t-att-src="'/web/static/src/img/placeholder.png'" height="120" border="1" width="120"/>
-                                                        <img t-if="o.image" t-att-src="'data:image/png;base64,%s' % to_text(o.image)" height="120" border="1" width="120"/>
-                                                    </p>
-                                                    <p style="text-align:center;">
-                                                        <strong><span t-field="o.name"/></strong>
-                                                    </p>
-                                                </td>
-                                                <td width="60%">
-                                                    <table>
-                                                        <tr>
-                                                            <td>
-                                                                <p style="text-align:right;padding-top:30px;"><strong>Ad No : </strong></p>
-                                                                <p style="text-align:right;"><strong>Class : </strong></p>
-                                                                <p style="text-align:right;"><strong>Contact : </strong></p>
-                                                                <p style="text-align:right;"><strong>Sex : </strong></p>
-                                                            </td>
-                                                            <td>
-                                                                <p style="text-align:left;padding-top:30px;padding-left:10px;"  t-field="o.ad_no"/>
-                                                                <p style="text-align:left;padding-left:10px;" t-field="o.class_id.name"/>
-                                                                <p style="text-align:left;padding-left:10px;" t-field="o.mobile"/>
-                                                                <p style="text-align:left;padding-left:10px;" t-field="o.gender"/>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </center>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <div class="oe_structure" style="height: 253px; width: 408px; border: 1px solid black;">
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <img t-if="o.image" t-att-src="'data:image/png;base64,%s' % to_text(res_company.logo)" style="max-height:2.5cm; max-width:4cm; margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px;"/>
+                                            </td>
+                                            <td style="vertical-align: top;">
+                                                <div style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px;">
+                                                    <b>
+                                                        <span t-raw="'%s' %  res_company.partner_id.name if  res_company.partner_id.name  else ''"/>
+                                                    </b>
+                                                    <br/>
+                                                    <span t-raw="'%s' %  res_company.partner_id.street if  res_company.partner_id.street  else ''"/>
+                                                    <br/>
+                                                    <span t-raw="'%s' %  res_company.partner_id.street2 if  res_company.partner_id.street2  else ''"/>
+                                                    <span t-raw="'%s' %  res_company.partner_id.city if  res_company.partner_id.city  else ''"/>
+                                                    <span t-field="o.nationality"/>
+                                                    <span t-raw="'%s' %  res_company.partner_id.state_id.name if  res_company.partner_id.state_id.name  else ''"/>
+                                                    <span t-raw="'%s' %  res_company.partner_id.zip if  res_company.partner_id.zip  else ''"/>
+                                                    <br/>
+                                                    Phone :
+                                                    <span t-raw="'%s' % res_company.partner_id.phone if  res_company.partner_id.phone  else ''"/>
+                                                    <br/>
+                                                    E-mail :
+                                                    <span t-raw="'%s' % res_company.partner_id.email if  res_company.partner_id.email  else ''"/>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <img t-if="o.image" t-att-src="'data:image/png;base64,%s' % to_text(o.image)" style="max-height:2.5cm; max-width:4cm; margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px;"/>
+                                            </td>
+                                            <td style="vertical-align: top;">
+                                                <div style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px;">
+                                                    <b>
+                                                        <span t-field="o.name"/>
+                                                        <span t-field="o.middle_name"/>
+                                                        <span t-field="o.last_name"/>
+                                                    </b>
+                                                    <br/>
+                                                    Blood Group :
+                                                    <span t-field="o.blood_group"/>
+                                                    <br/>
+                                                    Birth Date :
+                                                    <span t-field="o.date_of_birth"/>
+                                                     <br/>
+                                                    Class ID :
+                                                    <span t-field="o.date_of_birth" t-field-options='{"format": "d MMMM y"}'/>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </t>
                 </t>
             </t>
-        </template>
-
-    </data>
-</odoo>
+        </t>
