@@ -1,4 +1,26 @@
-
+# -*- coding: utf-8 -*-
+###################################################################################
+#    A part of Educational ERP Project <https://www.educationalerp.com>
+#
+#    Cybrosys Technologies Pvt. Ltd.
+#    Copyright (C) 2018-TODAY Cybrosys Technologies (<https://www.cybrosys.com>).
+#    Author: Niyas Raphy (niyas@cybrosys.in)
+#            Nikhil krishnan (nikhil@cybrosys.in)
+#
+#    This program is free software: you can modify
+#    it under the terms of the GNU Affero General Public License (AGPL) as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+###################################################################################
 
 from odoo import fields, models, _, api
 from odoo.exceptions import ValidationError
@@ -73,7 +95,7 @@ class StudentApplication(models.Model):
                 'medium': rec.medium.id,
                 'religion_id': rec.religion_id.id,
                 'caste_id': rec.caste_id.id,
-                #'sec_lang': rec.sec_lang.id,
+                'sec_lang': rec.sec_lang.id,
                 'mother_tongue': rec.mother_tongue.id,
                 'admission_class': rec.admission_class.id,
                 'company_id': rec.company_id.id,
@@ -170,9 +192,9 @@ class StudentApplication(models.Model):
                                        help="Choose Academic year for which the admission is choosing")
     medium = fields.Many2one('education.medium', string="Medium", required=True,
                              help="Choose the Medium of class, like English, Hindi etc")
-    # sec_lang = fields.Many2one('education.subject', string="Second language",
-                               # required=True, domain=[('is_language', '=', True)],
-                               # help="Choose the Second language")
+    sec_lang = fields.Many2one('education.subject', string="Second language",
+                               required=True, domain=[('is_language', '=', True)],
+                               help="Choose the Second language")
     mother_tongue = fields.Many2one('education.mother.tongue', string="Mother Tongue",
                                     required=True, help="Enter Student's Mother Tongue")
     admission_class = fields.Many2one('education.class', string="Class", required=True,
