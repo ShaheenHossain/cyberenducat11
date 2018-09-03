@@ -1,14 +1,8 @@
-# -*- coding: utf-8 -*-
 
 from odoo import fields, models, api, _
 from odoo.exceptions import ValidationError
 
-class AcademyRoomNo(models.Model):
-    _name='education.rooms'
-    name=fields.Char('Room Name')
-    code=fields.Integer('Room No')
-    capacity=fields.Integer('Capacity')
-    amenities_ids = fields.One2many('education.class.amenities', 'room_id', string='Amenities')
+
 class EducationAcademic(models.Model):
     _name = 'education.academic.year'
     _description = 'Academic Year'

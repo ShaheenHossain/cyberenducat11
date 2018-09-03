@@ -1,148 +1,14 @@
-# -*- coding: utf-8 -*-
+
 
 from odoo import fields, models, _, api
 from odoo.exceptions import ValidationError
 
-class GuardianStudentRelation(models.Model):
-    _name='gurdian.student.relation'
-    name=fields.Char(string='Name',required=True)
-    gender=fields.Selection([('male',"Male"),
-                             ('female','Female')])
-    relation=fields.Char(string='Relation',required=True)
-    reverse_male=fields.Char(string='Reverse  Relation (Male)',required=True)
-    reverse_female=fields.Char(string='Reverse Relation (Female)',required=True)
 
 class StudentApplication(models.Model):
     _name = 'education.application'
     _inherit = ['mail.thread']
     _description = 'Applications for the admission'
     _order = 'id desc'
-
-    name = fields.Char(string='Name', required=True, help="Enter First name of Student")
-    middle_name = fields.Char(string='Middle Name', help="Enter Middle name of Student")
-    last_name = fields.Char(string='Last Name', help="Enter Last name of Student")
-    name_b = fields.Char("নামের প্রথম অংশ",required=True)
-    middle_name_b = fields.Char("নামের মধ্যাংশ",required=True)
-    last_name_b = fields.Char("নামের শেয়াংশ",required=True)
-    already_student=fields.Boolean("Allready Admitted?")
-    student_id=fields.Char('Student Id')
-    prev_school = fields.Many2one('education.institute', string='Previous Institution',
-                                  help="Enter the name of previous institution")
-    image = fields.Binary(string='Image', help="Provide the image of the Student")
-    academic_year_id = fields.Many2one('education.academic.year', string='Academic Year',
-                                       help="Choose Academic year for which the admission is choosing")
-    medium = fields.Many2one('education.medium', string="Medium", required=True,default=1,
-                             help="Choose the Medium of class, like Bengali,English etc")
-    sec_lang = fields.Many2one('education.subject', string="Second language",required=True,default=1,
-                               # domain=[('is_language', '=', True)],
-                               help="Choose the Second language")
-    mother_tongue = fields.Many2one('education.medium', string="Mother Tongue",default=1,
-                                    required=True, help="Enter Student's Mother Tongue")
-    admission_class = fields.Many2one('education.class', string="Class", required=True,
-                                      help="Enter Class to which the admission is seeking")
-    admission_date = fields.Datetime('Admission Date') #, default=fields.Datetime.now, required=True
-    application_no = fields.Char(string='Application  No', required=True, copy=False, readonly=True,
-                       index=True, default=lambda self: _('New'))
-    company_id = fields.Many2one('res.company', string='Company', default=lambda self: self.env.user.company_id)
-    email = fields.Char(string="student Email", help="Enter E-mail id for contact purpose")
-    phone = fields.Char(string="student Phone", help="Enter Phone no. for contact purpose")
-    mobile = fields.Char(string="Student Mobile", required=True, help="Enter Mobile num for contact purpose")
-    nationality = fields.Many2one('res.country', string='Nationality', ondelete='restrict',default=19,
-                                  help="Select the Nationality")
-
-    street = fields.Char(string='Street', help="Enter the street")
-    street2 = fields.Char(string='Street2', help="Enter the street2")
-    zip = fields.Char(change_default=True, string='ZIP code', help="Enter the Zip Code")
-    city = fields.Char(string='City', help="Enter the City name")
-    state_id = fields.Many2one("res.country.state", string='State', ondelete='restrict',
-                               help="Select the State where you are from")
-    country_id = fields.Many2one('res.country', string='Country', ondelete='restrict',default=19,
-                                 help="Select the Country")
-    is_same_address = fields.Boolean(string="Permanent Address same as above", default=True,
-                                     help="Tick the field if the Present and permanent address is same")
-    per_street = fields.Char(string='Street', help="Enter the street")
-    per_street2 = fields.Char(string='Street2', help="Enter the street2")
-    per_zip = fields.Char(change_default=True, string='ZIP code', help="Enter the Zip Code")
-    per_city = fields.Char(string='City', help="Enter the City name")
-    per_state_id = fields.Many2one("res.country.state", string='State', ondelete='restrict',
-                                   help="Select the State where you are from")
-    per_country_id = fields.Many2one('res.country', string='Country', ondelete='restrict',default=19,
-                                     help="Select the Country")
-    date_of_birth = fields.Date(string="Date Of birth", required=True, help="Enter your DOB")
-    guardian_relation = fields.Many2one('gurdian.student.relation', string="Relation to Guardian",  required=True,
-                                        help="Tell us the Relation toyour guardian")
-    #### guardian Details
-    guardian_name = fields.Char(string="guardian's First Name", help="Proud to say my guardian is")
-    guardian_m_name = fields.Char(string="guardian's Middle Name", help="Proud to say my guardian is")
-    guardian_l_name = fields.Char(string="guardian's Last Name", help="Proud to say my guardian is")
-    guardian_NID = fields.Char(string="guardian's NID", help="guardian's NID")
-    guardian_mobile = fields.Char(string="guardian's Mobile No", help="guardian's Mobile No")
-    guardian_car_no = fields.Char(string="guardian's Car No", help="guardian's Car No")
-
-    # guardian_name = fields.Many2one('res.partner', string="Guardian", domain=[('is_parent', '=', True)], required=True,
-    #                                 help="Tell us who will take care of you")
-    description = fields.Text(string="Note")
-    #### Father Details
-    father_name = fields.Char(string="Father's First Name", help="Proud to say my father is")
-    father_m_name = fields.Char(string="Father's Middle Name", help="Proud to say my father is")
-    father_l_name = fields.Char(string="Father's Last Name", help="Proud to say my father is")
-    father_name_b = fields.Char(string="Father's First Name", help="Proud to say my father is")
-    father_m_name_b = fields.Char(string="Father's Middle Name", help="Proud to say my father is")
-    father_l_name_b = fields.Char(string="Father's Last Name", help="Proud to say my father is")
-    father_NID = fields.Char(string="Father's NID", help="Father's NID")
-    father_mobile = fields.Char(string="Father's Mobile No", help="Father's Mobile No")
-    father_car_no = fields.Char(string="Father's Car No", help="Father's Car No")
-    # father_name = fields.Many2one('res.partner', string="Father", domain=[('is_parent', '=', True)], required=True, help="Proud to say my father is")
-    # mother_name = fields.Char(string="Mother", help="My mother's name is")
-    # mother_name = fields.Many2one('res.partner', string="Mother", domain=[('is_parent', '=', True)], required=True, help="My mother name is")
-    #### Mother Details
-    mother_name = fields.Char(string="mother's First Name", help="Proud to say my mother is")
-    mother_name_b = fields.Char(string="mother's First Name", help="Proud to say my mother is")
-    mother_m_name = fields.Char(string="mother's Middle Name", help="Proud to say my mother is")
-    mother_m_name_b = fields.Char(string="mother's Middle Name", help="Proud to say my mother is")
-    mother_l_name = fields.Char(string="mother's Last Name", help="Proud to say my mother is")
-    mother_l_name_b = fields.Char(string="mother's Last Name", help="Proud to say my mother is")
-    mother_NID = fields.Char(string="mother's NID", help="mother's NID")
-    mother_mobile = fields.Char(string="mother's Mobile No", help="mother's Mobile No")
-    mother_car_no = fields.Char(string="mother's Car No", help="mother's Car No")
-
-    religion_id = fields.Many2one('religion.religion', string="Religion", help="My Religion is ")
-    caste_id = fields.Many2one('religion.caste', string="Caste", help="My Caste is ")
-    class_id = fields.Many2one('education.class.division', string="Class")
-    active = fields.Boolean(string='Active', default=True)
-    document_count = fields.Integer(compute='_document_count', string='# Documents')
-    verified_by = fields.Many2one('res.users', string='Verified by', help="The Document is verified by")
-    reject_reason = fields.Many2one('application.reject.reason', string='Reject Reason',
-                                    help="Application is rejected because")
-    gender = fields.Selection([('male', 'Male'), ('female', 'Female'), ('other', 'Other')],
-                              string='Gender', required=True, default='male', track_visibility='onchange',
-                              help="Your Gender is ")
-    blood_group = fields.Selection([('a+', 'A+'), ('a-', 'A-'), ('b+', 'B+'), ('o+', 'O+'), ('o-', 'O-'),
-                                    ('ab-', 'AB-'), ('ab+', 'AB+')],
-                                   string='Blood Group', required=True, default='a+', track_visibility='onchange',
-                                   help="Your Blood Group is ")
-    state = fields.Selection([('draft', 'Draft'), ('verification', 'Verify'),
-                              ('approve', 'Approve'), ('reject', 'Reject'), ('done', 'Done')],
-                             string='State', required=True, default='draft', track_visibility='onchange')
-
-    @api.onchange('guardian_relation')
-    def guardian_relation_changed(self):
-        for rec in self:
-            if rec.guardian_relation.name:
-                if  rec.guardian_relation.name=='Father':
-                    rec.guardian_NID=rec.father_NID
-                    rec.guardian_mobile=rec.father_mobile
-                    rec.guardian_car_no=rec.father_car_no
-                    rec.guardian_name=rec.father_name
-                    rec.guardian_m_name=rec.father_m_name
-                    rec.guardian_l_name=rec.father_l_name
-                elif  rec.guardian_relation.name=='Mother':
-                    rec.guardian_NID = rec.mother_NID
-                    rec.guardian_mobile = rec.mother_mobile
-                    rec.guardian_car_no = rec.mother_car_no
-                    rec.guardian_name = rec.mother_name
-                    rec.guardian_m_name = rec.mother_m_name
-                    rec.guardian_l_name = rec.mother_l_name
 
     @api.model
     def create(self, vals):
@@ -174,52 +40,14 @@ class StudentApplication(models.Model):
     def create_student(self):
         """Create student from the application and data and return the student"""
         for rec in self:
-            father_id=self.env['res.partner'].search([('nid_no','=',rec.father_NID)])
-            if father_id.id:
-                father =father_id.id
-            else:
-                new_father_id=father_id.create({'name': rec.father_name,
-                                                'nid_no': rec.father_NID,
-                                                'mobile': rec.father_mobile,
-                                                'car_no': rec.father_car_no,
-                                                'name_b': rec.father_name_b,
-                                                'middle_name': rec.father_m_name,
-                                                'middle_name_b': rec.father_m_name_b,
-                                                'last_name_b': rec.father_l_name_b,
-                                                'last_name': rec.father_l_name,
-                                                'gender': 'male',
-                                                'is_parent': True})
-                father=new_father_id.id
-            mother_id = self.env['res.partner'].search([('nid_no', '=', rec.mother_NID)])
-            if mother_id.id:
-                mother = mother_id.id
-            else:
-                new_mother_id = mother_id.create({'name': rec.mother_name,
-                                                  'nid_no': rec.mother_NID,
-                                                  'gender': 'female',
-                                                  'is_parent': True})
-                mother = new_mother_id.id
-            guardian_id = self.env['res.partner'].search([('nid_no', '=', rec.guardian_NID )])
-            if guardian_id.id:
-                guardian = guardian_id.id
-            else:
-                new_guardian_id = guardian_id.create({'name': rec.guardian_name,
-                                                      'nid_no': rec.guardian_NID,
-                                                      'gender': rec.guardian_relation.gender,
-                                                      'is_parent': True})
-                guardian = new_guardian_id.id
             values = {
                 'name': rec.name,
-                'name_b': rec.name_b,
                 'last_name': rec.last_name,
-                'last_name_b':rec.last_name_b,
                 'middle_name': rec.middle_name,
-                'middle_name_b': rec.middle_name_b,
                 'application_id': rec.id,
-                'father_name': father,
-                'mother_name': mother,
-                'guardian_relation': rec.guardian_relation.id,
-                'guardian_name': guardian,
+                'father_name': rec.father_name,
+                'mother_name': rec.mother_name,
+                'guardian_name': rec.guardian_name.id,
                 'street': rec.street,
                 'street2': rec.street2,
                 'city': rec.city,
@@ -245,7 +73,7 @@ class StudentApplication(models.Model):
                 'medium': rec.medium.id,
                 'religion_id': rec.religion_id.id,
                 'caste_id': rec.caste_id.id,
-                'sec_lang': rec.sec_lang.id,
+                #'sec_lang': rec.sec_lang.id,
                 'mother_tongue': rec.mother_tongue.id,
                 'admission_class': rec.admission_class.id,
                 'company_id': rec.company_id.id,
@@ -331,3 +159,73 @@ class StudentApplication(models.Model):
             'limit': 80,
             'context': "{'default_application_ref': '%s'}" % self.id
         }
+
+    name = fields.Char(string='Name', required=True, help="Enter First name of Student")
+    middle_name = fields.Char(string='Middle Name', help="Enter Middle name of Student")
+    last_name = fields.Char(string='Last Name', help="Enter Last name of Student")
+    prev_school = fields.Many2one('education.institute', string='Previous Institution',
+                                  help="Enter the name of previous institution")
+    image = fields.Binary(string='Image', help="Provide the image of the Student")
+    academic_year_id = fields.Many2one('education.academic.year', string='Academic Year',
+                                       help="Choose Academic year for which the admission is choosing")
+    medium = fields.Many2one('education.medium', string="Medium", required=True,
+                             help="Choose the Medium of class, like English, Hindi etc")
+    # sec_lang = fields.Many2one('education.subject', string="Second language",
+                               # required=True, domain=[('is_language', '=', True)],
+                               # help="Choose the Second language")
+    mother_tongue = fields.Many2one('education.mother.tongue', string="Mother Tongue",
+                                    required=True, help="Enter Student's Mother Tongue")
+    admission_class = fields.Many2one('education.class', string="Class", required=True,
+                                      help="Enter Class to which the admission is seeking")
+    admission_date = fields.Datetime('Admission Date', default=fields.Datetime.now, required=True)
+    application_no = fields.Char(string='Application  No', required=True, copy=False, readonly=True,
+                       index=True, default=lambda self: _('New'))
+    company_id = fields.Many2one('res.company', string='Company', default=lambda self: self.env.user.company_id)
+    email = fields.Char(string="Email", help="Enter E-mail id for contact purpose")
+    phone = fields.Char(string="Phone", help="Enter Phone no. for contact purpose")
+    mobile = fields.Char(string="Mobile", required=True, help="Enter Mobile num for contact purpose")
+    nationality = fields.Many2one('res.country', string='Nationality', ondelete='restrict',
+                                  help="Select the Nationality")
+
+    street = fields.Char(string='Street', help="Enter the street")
+    street2 = fields.Char(string='Street2', help="Enter the street2")
+    zip = fields.Char(change_default=True, string='ZIP code', help="Enter the Zip Code")
+    city = fields.Char(string='City', help="Enter the City name")
+    state_id = fields.Many2one("res.country.state", string='State', ondelete='restrict',
+                               help="Select the State where you are from")
+    country_id = fields.Many2one('res.country', string='Country', ondelete='restrict',
+                                 help="Select the Country")
+    is_same_address = fields.Boolean(string="Permanent Address same as above", default=True,
+                                     help="Tick the field if the Present and permanent address is same")
+    per_street = fields.Char(string='Street', help="Enter the street")
+    per_street2 = fields.Char(string='Street2', help="Enter the street2")
+    per_zip = fields.Char(change_default=True, string='ZIP code', help="Enter the Zip Code")
+    per_city = fields.Char(string='City', help="Enter the City name")
+    per_state_id = fields.Many2one("res.country.state", string='State', ondelete='restrict',
+                                   help="Select the State where you are from")
+    per_country_id = fields.Many2one('res.country', string='Country', ondelete='restrict',
+                                     help="Select the Country")
+    date_of_birth = fields.Date(string="Date Of birth", required=True, help="Enter your DOB")
+    guardian_name = fields.Many2one('res.partner', string="Guardian", domain=[('is_parent', '=', True)], required=True,
+                                    help="Tell us who will take care of you")
+    description = fields.Text(string="Note")
+    father_name = fields.Char(string="Father", help="Proud to say my father is")
+    mother_name = fields.Char(string="Mother", help="My mother's name is")
+    religion_id = fields.Many2one('religion.religion', string="Religion", help="My Religion is ")
+    caste_id = fields.Many2one('religion.caste', string="Caste", help="My Caste is ")
+    class_id = fields.Many2one('education.class.division', string="Class")
+    active = fields.Boolean(string='Active', default=True)
+    document_count = fields.Integer(compute='_document_count', string='# Documents')
+    verified_by = fields.Many2one('res.users', string='Verified by', help="The Document is verified by")
+    reject_reason = fields.Many2one('application.reject.reason', string='Reject Reason',
+                                    help="Application is rejected because")
+    gender = fields.Selection([('male', 'Male'), ('female', 'Female'), ('other', 'Other')],
+                              string='Gender', required=True, default='male', track_visibility='onchange',
+                              help="Your Gender is ")
+    blood_group = fields.Selection([('a+', 'A+'), ('a-', 'A-'), ('b+', 'B+'), ('o+', 'O+'), ('o-', 'O-'),
+                                    ('ab-', 'AB-'), ('ab+', 'AB+')],
+                                   string='Blood Group', required=True, default='a+', track_visibility='onchange',
+                                   help="Your Blood Group is ")
+    state = fields.Selection([('draft', 'Draft'), ('verification', 'Verify'),
+                              ('approve', 'Approve'), ('reject', 'Reject'), ('done', 'Done')],
+                             string='State', required=True, default='draft', track_visibility='onchange')

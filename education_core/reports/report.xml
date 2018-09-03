@@ -45,14 +45,6 @@
             name="education_core.report_student_application"
             file="education_core.report_student_application"
         />
-        <report
-            id="action_exam_marksheet"
-            model="education.exam.results"
-            string="Print Marksheet"
-            report_type="qweb-pdf"
-            name="education_core.report_exam_marksheet"
-            file="education_core.report_exam_marksheet"
-        />
 
     </data>
 </odoo>

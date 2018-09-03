@@ -14,17 +14,6 @@
                                         <div class="col-xs-8" style="margin:auto">
                                             <p style="padding-top:20px;"/>
                                             <table class="table table-condensed">
-                                                
-                                                <tr>
-                                                    <td>
-                                                        <strong><span>Student Application No. :</span></strong>
-                                                    </td>
-                                                    <td>
-                                                        <span t-if="o.application_no" t-field="o.application_no"/>
-                                                    </td>
-                                                </tr>
-                                                
-                                                
                                                 <tr>
                                                     <td>
                                                         <strong><span>Student's Name:</span></strong>
@@ -56,7 +45,7 @@
                                                         <strong><span>Guardian's Name:</span></strong>
                                                     </td>
                                                     <td>
-                                                        <span t-if="o.guardian_name" t-field="o.guardian_name"/>
+                                                        <span t-if="o.guardian_name" t-field="o.guardian_name.name"/>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -146,8 +135,7 @@
                                                     <strong><span>Date of Birth:</span></strong>
                                                 </td>
                                                 <td style="text-align:left;" class="col-xs-4">
-                                                    <span t-field="o.date_of_birth" t-field-options='{"format": "d MMMM y"}'/>
-                                                    
+                                                    <span t-if="o.date_of_birth" t-field="o.date_of_birth"/>
                                                 </td>
                                             </tr>
                                             <tr t-if="o.blood_group">

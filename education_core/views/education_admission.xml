@@ -54,139 +54,89 @@
                         </button>
                     </div>
                     <field name="image" widget="image" class="oe_left oe_avatar" />
-                    <div >
+                    <div class="oe_title">
                         <h3>
                             <field name="application_no"/>
                         </h3>
-                        <h4>
+                        <h1>
                             <table>
                                 <tr>
                                     <td style="padding-right:10px;"><field name="name" placeholder="First Name" required="1" attrs="{'readonly': [('state', '=', 'done')]}"/></td>
                                     <td style="padding-right:10px;"><field name="middle_name" placeholder="Middle Name" attrs="{'readonly': [('state', '=', 'done')]}"/></td>
                                     <td style="padding-right:10px;"><field name="last_name" placeholder="Last Name" required="1" attrs="{'readonly': [('state', '=', 'done')]}"/></td>
                                 </tr>
-                                <tr>
-                                    <td style="padding-right:10px;"><field name="name_b" placeholder="নামের প্রথম অংশ" required="1" attrs="{'readonly': [('state', '=', 'done')]}"/></td>
-                                    <td style="padding-right:10px;"><field name="middle_name_b" placeholder="নামের মধ্যাংশ" attrs="{'readonly': [('state', '=', 'done')]}"/></td>
-                                    <td style="padding-right:10px;"><field name="last_name_b" placeholder="নামের শেষাংশ" required="1" attrs="{'readonly': [('state', '=', 'done')]}"/></td>
-                                </tr>
                             </table>
-                        </h4>
-                        <group>
-                            <field name="already_student"/>
-                            <field name="student_id" attrs="{'invisible':[('already_student','=',False)]}"/>
-                        </group>
+                        </h1>
                     </div>
-                     <div  attrs="{'invisible':[('already_student','=',True)]}">
                     <separator/>
                     <group string="Admission Details">
-
+                        <group>
                             <field name="academic_year_id" required="1" attrs="{'readonly': [('state', '=', 'done')]}"/>
                             <field name="admission_date" attrs="{'readonly': [('state', '=', 'done')]}"/>
                             <field name="admission_class" attrs="{'readonly': [('state', '=', 'done')]}"/>
-                            <!-- <field name="sec_lang" attrs="{'readonly': [('state', '=', 'done')]}"/> -->
+                            <field name="sec_lang" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                        </group>
+                        <group>
                             <field name="medium" attrs="{'readonly': [('state', '=', 'done')]}"/>
                             <field name="company_id" groups="base.group_multi_company" attrs="{'readonly': [('state', '=', 'done')]}"/>
                             <field name="prev_school" attrs="{'readonly': [('state', '=', 'done')]}"/>
-
+                        </group>
                     </group>
-                     <notebook>
-                         <page string="Personal Details">
-                        <group col="4">
+                    <separator string="Personal Details"/>
+                    <group>
+                        <group>
                             <field name="date_of_birth" attrs="{'readonly': [('state', '=', 'done')]}"/>
                             <field name="blood_group" attrs="{'readonly': [('state', '=', 'done')]}"/>
                             <field name="mother_tongue" attrs="{'readonly': [('state', '=', 'done')]}"/>
-                            <!--<field name="father_name" attrs="{'readonly': [('state', '=', 'done')]}"/>-->
-                            <!--<field name="mother_name" attrs="{'readonly': [('state', '=', 'done')]}"/>-->
+                            <field name="father_name" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                            <field name="guardian_name" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                        </group>
+                        <group>
                             <field name="gender" attrs="{'readonly': [('state', '=', 'done')]}"/>
                             <field name="nationality" attrs="{'readonly': [('state', '=', 'done')]}"/>
                             <field name="religion_id" attrs="{'readonly': [('state', '=', 'done')]}"/>
-                            <!--<field name="caste_id" attrs="{'readonly': [('state', '=', 'done')]}"/>-->
-                            <!--<field name="guardian_name" attrs="{'readonly': [('state', '=', 'done')] }"/>-->
+                            <field name="caste_id" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                            <field name="mother_name" attrs="{'readonly': [('state', '=', 'done')]}"/>
                         </group>
-                     </page>
-                         <page string="Parent Details">
-                             <group col="6">
-                                 <separator string="Father's Information" colspan="6"/>
-                                 <field name="father_NID"/>
-                                 <field name="father_car_no"/>
-                                 <field name="father_mobile"/>
-                                 <field name="father_name" nolabel='1' placeholder="First Name" colspan="2"/>
-                                 <field name="father_m_name" nolabel='1' placeholder="Middle Name" colspan="2"/>
-                                 <field name="father_l_name" nolabel='1' placeholder="Last Name" colspan="2"/>
-                                 <field name="father_name_b" nolabel='1' placeholder="নামের প্রথম অংশ" colspan="2"/>
-                                 <field name="father_m_name_b" nolabel='1' placeholder="নামের মধ্যাংশ" colspan="2"/>
-                                 <field name="father_l_name_b" nolabel='1' placeholder="নামের শেষ অংশ" colspan="2"/>
-                             </group>
-                             <group col="6">
-                                 <separator string="Mother's Information" colspan="6"/>
-                                 <field name="mother_NID"/>
-                                 <field name="mother_car_no"/>
-                                 <field name="mother_mobile"/>
-                                 <field name="mother_name" nolabel='1' placeholder="First Name" colspan="2"/>
-                                 <field name="mother_m_name" nolabel='1' placeholder="Middle Name" colspan="2"/>
-                                 <field name="mother_l_name" nolabel='1' placeholder="Last Name" colspan="2"/>
-                                 <field name="mother_name_b" nolabel='1' placeholder="নামের প্রথম অংশ" colspan="2"/>
-                                 <field name="mother_m_name_b" nolabel='1' placeholder="নামের মধ্যাংশ" colspan="2"/>
-                                 <field name="mother_l_name_b" nolabel='1' placeholder="নামের শেষ অংশ" colspan="2"/>
-                             </group>
-                         </page>
-
-                         <page string="Guardian's Information">
-                             <group col="6">
-                                <separator String="Guardians Information" colspan="6"/>
-                                 <field name="guardian_relation" attrs="{'readonly': [('state', '=', 'done')]}" colspan="6"/>
-
-                                    <field name="guardian_NID"/>
-                                 <field name="guardian_car_no"/>
-                                 <field name="guardian_mobile"/>
-                                 <field name="guardian_name" nolabel='1' placeholder="First Name" colspan="2"/>
-                                 <field name="guardian_m_name" nolabel='1' placeholder="Middle Name" colspan="2"/>
-                                 <field name="guardian_l_name" nolabel='1' placeholder="Last Name" colspan="2"/>
-                            </group>
-                         </page>
-                         <page string="Address">
-                             <separator string="Present Address"/>
-                             <div class="o_address_format">
-                                <field name="street" required="1" placeholder="House No / Village..." class="o_address_street" attrs="{'readonly': [('state', '=', 'done')]}"/>
-                                <field name="street2" placeholder="Road/ Post Office..." class="o_address_street" attrs="{'readonly': [('state', '=', 'done')]}"/>
-                                <field name="city" placeholder="Area/Thana" class="o_address_city" attrs="{'readonly': [('state', '=', 'done')]}"/>
-                                <field name="state_id" class="o_address_state" placeholder="City/Town/District" options='{"no_open": True}' attrs="{'readonly': [('state', '=', 'done')]}"/>
-                                <field name="zip" placeholder="Post Code" class="o_address_zip" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                    </group>
+                    <group>
+                        <separator string="Contact Address"/>
+                        <group>
+                            <div class="o_address_format">
+                                <field name="street" required="1" placeholder="Street..." class="o_address_street" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                                <field name="street2" placeholder="Street 2..." class="o_address_street" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                                <field name="city" placeholder="City" class="o_address_city" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                                <field name="state_id" class="o_address_state" placeholder="State" options='{"no_open": True}' attrs="{'readonly': [('state', '=', 'done')]}"/>
+                                <field name="zip" placeholder="ZIP" class="o_address_zip" attrs="{'readonly': [('state', '=', 'done')]}"/>
                                 <field name="country_id" placeholder="Country" class="o_address_country" options='{"no_open": True, "no_create": True}' attrs="{'readonly': [('state', '=', 'done')]}"/>
                             </div>
-                             <label for="is_same_address" class="oe_inline"/>
+                        </group>
+                        <label for="is_same_address" class="oe_inline"/>
                         <field name="is_same_address" attrs="{'readonly': [('state', '=', 'done')]}"/>
                         <div name="permanent_address" attrs="{'readonly': [('state', '=', 'done')],'invisible': [('is_same_address','=', True)]}">
                             <separator string="Permanent Address"/>
                             <group>
                                 <div class="o_address_format">
-                                    <field name="per_street" placeholder="House No / Village..." class="o_address_street"/>
-                                    <field name="per_street2" placeholder="Road/ Post Office..." class="o_address_street"/>
-                                    <field name="per_city" placeholder="Area/Thana" class="o_address_city"/>
-                                    <field name="per_state_id" class="o_address_state" placeholder="City/Town/District" options='{"no_open": True}'/>
-                                    <field name="per_zip" placeholder="Post Code" class="o_address_zip"/>
+                                    <field name="per_street" placeholder="Street..." class="o_address_street"/>
+                                    <field name="per_street2" placeholder="Street 2..." class="o_address_street"/>
+                                    <field name="per_city" placeholder="City" class="o_address_city"/>
+                                    <field name="per_state_id" class="o_address_state" placeholder="State" options='{"no_open": True}'/>
+                                    <field name="per_zip" placeholder="ZIP" class="o_address_zip"/>
                                     <field name="per_country_id" placeholder="Country" class="o_address_country" options='{"no_open": True, "no_create": True}'/>
                                 </div>
                             </group>
                         </div>
-                         </page>
-                         <page string="Contact Details">
-                             <separator string="Contact Details"/>
-
-                            <group>
+                    </group>
+                    <separator string="Contact Details"/>
+                    <group name="contact_info">
+                        <group>
                             <field name="email" attrs="{'readonly': [('state', '=', 'done')]}"/>
-
-
+                        </group>
+                        <group>
                             <field name="phone" attrs="{'readonly': [('state', '=', 'done')]}"/>
                             <field name="mobile" attrs="{'readonly': [('state', '=', 'done')]}"/>
-                            </group>
-                         </page>
-                     </notebook>
-
-
-                     </div>
-
+                        </group>
+                    </group>
                     <group string="Reject Reason" attrs="{'invisible': [('reject_reason', '=',False)]}">
                         <group>
                             <field name="reject_reason" attrs="{'invisible': [('reject_reason', '=',False)]}"/>
@@ -236,7 +186,6 @@
         <field name="arch" type="xml">
             <search string="Search Application">
                 <field name="admission_class"/>
-                <field name="application_no"/>
                 <field name="medium"/>
                 <field name="sec_lang"/>
                 <field name="gender"/>

@@ -1,4 +1,5 @@
-# -*- coding: utf-8 -*-
+
+
 from odoo import fields, models, api, _
 from odoo.exceptions import ValidationError
 
@@ -13,7 +14,7 @@ class ApplicationClassDetails(models.Model):
                                   help="Student Assigning is done by")
     class_id = fields.Many2one('education.class.division', string="Class", required=True,
                                help="Students are alloted to this Class")
-    roll_no=fields.Integer()
+
     @api.multi
     def action_assign_class(self):
         """Assign the class for the selected students after admission by the faculties"""

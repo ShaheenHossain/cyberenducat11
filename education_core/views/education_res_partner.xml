@@ -17,7 +17,6 @@
                             <group string="Parent" name="parent">
                                 <field name="is_parent"/>
                             </group>
-
                         </group>
                     </page>
                 </xpath>

@@ -5,18 +5,12 @@
     'description': 'Core Module of Education ERP',
     'category': 'Education',
     'author': 'Md. Shaheen Hossain',
-    'company': 'Eagle ERP ',
+    'company': 'Eagle ERP',
     'website': "http://www.eagle-it-services.com",
     'depends': ['base', 'mail', 'stock', 'hr_recruitment'],
     'data': [
         'security/education_security.xml',
         'security/ir.model.access.csv',
-        'data/gurdian.student.relation.csv',
-        'data/education.class.csv',
-        'data/education.academic.year.csv',
-        # 'data/education_class_section.csv',
-        # 'data/education_division.csv',
-        'data/education_core.xml',
         'views/education_main_menu.xml',
         'views/education_res_partner.xml',
         'views/education_application_reject.xml',
@@ -43,7 +37,6 @@
         'reports/student_id_card.xml',
         'reports/student_application_report.xml',
         'reports/faculty_id_card.xml',
-        'reports/exam_marksheet.xml',
     ],
     'demo': [
         'demo/education_data.xml',
@@ -54,5 +47,3 @@
     'auto_install': False,
     'application': True,
 }
-
-# 'education_theme',

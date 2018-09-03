@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 
 from odoo import fields, models, api, _
 from odoo.exceptions import ValidationError
@@ -14,7 +12,6 @@ class EducationStudentClass(models.Model):
     class_id = fields.Many2one('education.class', string='Class')
     student_list = fields.One2many('education.student.list', 'connect_id', string="Students")
     admitted_class = fields.Many2one('education.class.division', string="Admitted Class")
-    roll_no=fields.Integer('Roll No')
     assigned_by = fields.Many2one('res.users', string='Assigned By', default=lambda self: self.env.uid)
     state = fields.Selection([('draft', 'Draft'), ('done', 'Done')],
                              string='State', required=True, default='draft', track_visibility='onchange')
