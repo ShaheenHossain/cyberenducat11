@@ -53,10 +53,13 @@
                                                     <span t-field="o.blood_group"/>
                                                     <br/>
                                                     Birth Date :
-                                                    <span t-field="o.date_of_birth"/>
-                                                     <br/>
-                                                    Class ID :
                                                     <span t-field="o.date_of_birth" t-field-options='{"format": "d MMMM y"}'/>
+                                                     <br/>
+                                                    Class :
+                                                    <span t-field="o.class_id" />
+                                                    <br/>
+                                                    Student ID :
+                                                    <span t-field="o.student_id"/>
                                                 </div>
                                             </td>
                                         </tr>
