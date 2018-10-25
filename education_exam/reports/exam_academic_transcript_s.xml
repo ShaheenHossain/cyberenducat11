@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="report_exam_academic_transcript_s">
+            <t t-call="web.html_container">
+                <t t-foreach="get_students(docs)" t-as="student">
+
+
+                    <t t-call="web.external_layout">
+                        <style>
+                            table, th, td {
+                                     border: 1px solid black;
+                                    padding-bottom:3px;
+                                    padding-left:3px;
+                                    padding-top:3px;
+                                    padding-right:3px;
+                                    }
+                            .right_top{
+                            float:right;
+                            padding-top:90px;
+                            }
+                            .left_top{
+                            float:left;
+                            padding-top:50px;
+                            padding-left:50px;
+                            }
+                            .right{
+                            float:right;
+                            padding-top:10px;
+                            padding-left:80px;
+                            padding-right:10px;
+                            padding-bottom:10px;
+                            }
+
+                            <!--.rotated {-->
+                            <!--writing-mode: tb-rl;-->
+                            <!--transform: rotate(-90deg);-->
+                            <!-- -webkit-transform: rotate(-90deg);-->
+                            <!-- -moz-transform: rotate(-90deg);-->
+                            <!-- -o-transform: rotate(-90deg);-->
+                            <!-- -ms-transform: rotate(-90deg);-->
+
+
+                            <!--}-->
+
+
+
+
+
+                        </style>
+<!--   ######    Variables for the report    -->
+                        <t t-set="subject_count" t-value="count_subjects(student,docs,'non_optional')"/>
+                        <t t-set="optional_subject_count" t-value="count_subjects(student,docs,'optional')"/>
+                        <t t-set="gpa" t-value="0"/>
+                        <t t-set="optional_gpa" t-value="0"/>
+                        <t t-set="total_gpa" t-value="0"/>
+                        <t t-set="optional_obtained_total" t-value="0"/>
+                        <t t-set="optional_total" t-value="0"/>
+                        <t t-set="exam_obtained_total" t-value="0"/>
+                        <t t-set="exam_total" t-value="0"/>
+                        <t t-set="marksFromAdditional" t-value="0"/>
+
+<!--   ######    Variables for the report    -->
+
+                        <div class="page">
+                            <div class="oe_structure">
+                                  <div class="row">
+                                    <div class="right_top" >
+                                        <table>
+                                            <tr><td>Letter <br></br> Grade </td><td>Grade <br></br>interval </td><td>Grade <br></br>point</td></tr>
+
+                                                <t t-foreach="get_gradings(o)" t-as="g">
+                                                    <tr><td> <span t-field="g.result"/></td>
+                                                        <td> <span t-field="g.min_per"/>-<span t-field="g.max_per"/>%</td>
+                                                        <td> <span t-field="g.score"/></td>
+                                                    </tr>
+                                                </t>
+
+                                        </table>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="right" padding-top="10px">
+                                        <table>
+                                            <tr><td colspan="2">Information</td><td colspan="2">Co-curricular Activity </td></tr>
+                                            <tr><td> Number of Students:</td><td width="40px"></td><td> Behavior</td><td width="40px"></td></tr>
+                                            <tr><td> Total working days:</td><td></td><td> Sports Program:</td><td></td></tr>
+                                            <tr><td> Attendance:</td><td></td><td> Uniform:</td><td></td></tr>
+                                            <tr><td> Percentage of attendance:</td><td></td><td> Cultural Activities:</td><td></td></tr>
+                                        </table>
+                                    </div>
+                                    <div class="left" padding-top="10px">
+                                        <table>
+                                            <tr><td>ID: </td><td><span t-field="student.student_id.student_id"/></td>
+                                                <td>Roll: </td><td><span t-field="student.student_id.roll_no"/></td>
+                                                <td>Section: </td><td><span t-field="student.student_id.class_id.section_id"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Name: </td><td colspan="6"><span t-field="student.student_id.name"/></td>
+
+                                            </tr>
+                                             <tr>
+                                                <td colspan="2">father's Name: </td><td colspan="6"><span t-field="student.student_id.father_name.name"/></td>
+
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">Mother's Name: </td><td colspan="6"><span t-field="student.student_id.mother_name.name"/></td>
+
+                                            </tr>
+                                        </table>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <table width="100%">
+                                     <tr>
+                                          <t t-foreach="get_exams(docs)" t-as="exam">
+                                                <t t-if="exam_first">
+                                                    <td rowspan="2">Subject</td><td rowspan="2">Paper</td><td colspan="10">Full Mark</td><td colspan="4">Obtained Marks</td><td class="rotated" rowspan="2">Total <br/> Mark</td><td rowspan="2"  class="rotated" >Highest <br/> Mark</td><td rowspan="2">LG</td><td rowspan="2">GP</td><td rowspan="2" class="rotated" >GPA <br/> (without <br/> 4th <br/>Subject)</td><td rowspan="2">GPA</td>
+                                                </t>
+
+
+                                           </t>
+                                     </tr>
+
+                                          <t t-foreach="get_exams(docs)" t-as="exam">
+                                              <t t-if="exam_first">
+                                                  <!--here I input <tr>-->
+                                             <p>&lt;tr&gt;</p>
+                                              </t>
+                                              <td>Tut</td><td>Pass</td><td>Sub</td><td>Pass</td><td>Obj</td><td>Pass</td><td>Prac</td><td>pass</td><td>Full Mark</td><td>Pass Mark</td><td>Tut</td><td>Sub</td><td>Obj</td><td>Prac</td>
+                                              <t t-if="exam_last">
+                                                    <!--here I input </tr>-->
+
+                                                    <p>&lt;/tr&gt;</p>
+                                                </t>
+                                           </t>
+
+                                    <t t-set="subject_count" t-value="len(get_subjects(student,docs))" />
+                                    <t t-foreach="get_subjects(student,docs)" t-as="subject">
+                                       <tr>
+                                           <t t-foreach="get_exams(docs)" t-as="exam">
+
+
+                                               <t t-if="exam_first">
+                                                   <td>
+                                                        <span t-field="subject.display"/>
+                                                   </td>
+                                                   <td>
+                                                       <span t-field="subject.paper"/>
+                                                   </td>
+                                                   <td>
+                                                       <span t-field="subject.tut_mark"/>
+                                                   </td>
+                                                   <td>
+                                                       <span t-field="subject.tut_pass"/>
+                                                   </td>
+                                                   <td>
+                                                       <span t-field="subject.subj_mark"/>
+                                                   </td>
+                                                   <td>
+                                                       <span t-field="subject.subj_pass"/>
+                                                   </td>
+                                                   <td>
+                                                       <span t-field="subject.obj_mark"/>
+                                                   </td>
+                                                   <td>
+                                                       <span t-field="subject.obj_pass"/>
+                                                   </td>
+                                                   <td>
+                                                       <span t-field="subject.prac_mark"/>
+                                                   </td>
+                                                   <td>
+                                                       <span t-field="subject.prac_pass"/>
+                                                   </td>
+                                                   <td>
+                                                       <span t-field="subject.total_mark"/>
+                                                   </td>
+                                                   <td>
+                                                       <span t-field="subject.pass_mark"/>
+                                                   </td>
+                                               </t>
+
+                                                   <t t-set="highest" t-value="get_highest(exam,subject)"/>
+
+
+                                               <t t-foreach="get_marks(exam,subject,student)" t-as="mark">
+                                                  <!--<td><span t-field="mark.tut_mark"/></td>-->
+                                                  <td><span t-field="mark.tut_mark"/></td>
+                                                  <td><span t-field="mark.subj_mark"/></td>
+                                                  <td><span t-field="mark.obj_mark"/></td>
+                                                  <td><span t-field="mark.prac_mark"/></td>
+                                                  <td><span t-field="mark.mark_scored"/></td>
+
+                                                  <td><span t-field="highest.mark_scored"/></td>
+                                                  <td><span t-field="mark.letter_grade"/></td>
+                                                  <td><span t-field="mark.grade_point"/></td>
+                                                   <t t-if="subject_first"><td t-att-rowspan="subject_count">
+                                                       <span t-esc="get_gpa(student,exam,'non_optional')"/></td>
+                                                       <td t-att-rowspan="subject_count">
+
+                                                                <t t-esc="get_gpa(student,exam,'non_optional')+(get_gpa(student,exam,'optional')-2)/subject_count"/>
+
+                                                       </td>
+                                                   </t>
+                                                </t>
+                                            </t>
+                                       </tr>
+                                    </t>
+                                        <tr>
+                                            <t t-foreach="get_exams(docs)" t-as="exam">
+                                                <t t-set="exam_obtained_total" t-value=" get_exam_obtained_total(exam,student,'non_optional')" />
+                                                <t t-set="exam_total" t-value=" get_exam_total(exam,student,docs,'non_optional')" />
+                                                <t t-if="exam_first">
+                                                    <td colspan="16">Total Mark Without Additional Subject:
+                                                                (percentage of total marks Without additional Subject:
+                                                        <t t-esc="round(exam_obtained_total/exam_total * 100,2)"/> %)</td>
+                                                    <!--round(6.2/9,2)-->
+                                                </t>
+                                                <td> <t t-esc="exam_obtained_total"/></td><td colspan="5"></td>
+                                            </t>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="22"> Additional Subject: (Mark above 40% and GPA  above 2.00) </td>
+                                        </tr>
+<!-- For Optional Subject-->
+                                            <t t-set="optional_count" t-value="len(get_optional_subjects(student,docs))" />
+<t t-foreach="get_optional_subjects(student,docs)" t-as="optional">
+
+
+                                       <tr>
+                                           <t t-foreach="get_exams(docs)" t-as="exam">
+
+
+                                               <t t-if="exam_first">
+                                                   <td>
+                                                        <span t-field="optional.display"/>
+                                                   </td>
+                                                   <td>
+                                                       <span t-field="optional.paper"/>
+                                                   </td>
+                                                   <td>
+                                                       <span t-field="optional.tut_mark"/>
+                                                   </td>
+                                                   <td>
+                                                       <span t-field="optional.tut_pass"/>
+                                                   </td>
+                                                   <td>
+                                                       <span t-field="optional.subj_mark"/>
+                                                   </td>
+                                                   <td>
+                                                       <span t-field="optional.subj_pass"/>
+                                                   </td>
+                                                   <td>
+                                                       <span t-field="optional.obj_mark"/>
+                                                   </td>
+                                                   <td>
+                                                       <span t-field="optional.obj_pass"/>
+                                                   </td>
+                                                   <td>
+                                                       <span t-field="optional.prac_mark"/>
+                                                   </td>
+                                                   <td>
+                                                       <span t-field="optional.prac_pass"/>
+                                                   </td>
+                                                   <td>
+                                                       <span t-field="optional.total_mark"/>
+                                                   </td>
+                                                   <td>
+                                                       <span t-field="optional.pass_mark"/>
+                                                   </td>
+                                               </t>
+
+                                                   <t t-set="highest" t-value="get_highest(exam,optional)"/>
+
+
+                                               <t t-foreach="get_marks(exam,optional,student)" t-as="mark">
+                                                  <!--<td><span t-field="mark.tut_mark"/></td>-->
+                                                  <td><span t-field="mark.tut_mark"/></td>
+                                                  <td><span t-field="mark.subj_mark"/></td>
+                                                  <td><span t-field="mark.obj_mark"/></td>
+                                                  <td><span t-field="mark.prac_mark"/></td>
+                                                  <td><span t-field="mark.mark_scored"/></td>
+                                                  <td><span t-field="highest.mark_scored"/></td>
+                                                  <td><span t-field="mark.letter_grade"/></td>
+                                                  <td><span t-field="mark.grade_point"/></td>
+                                                   <t t-if="optional_first"><td t-att-rowspan="optional_count"> GP Above 2.0</td></t>
+                                                   <td></td>
+
+                                                </t>
+
+                                            </t>
+                                       </tr>
+
+                                    </t>
+                                    <tr>
+                                            <t t-foreach="get_exams(docs)" t-as="exam">
+                                                <t t-set="optional_obtained_total" t-value=" get_exam_obtained_total(exam,student,'optional')" />
+                                                <t t-set="optional_total" t-value=" get_exam_total(exam,student,docs,'optional')" />
+                                                <t t-if="exam_first">
+                                                    <td colspan="16">Total Mark for Additional Subject:
+                                                                (percentage of total marks for additional Subject:
+                                                        <t t-esc="round(optional_obtained_total/optional_total * 100,2)"/>
+                                                        %)</td>
+                                                    <!--round(6.2/9,2)-->
+                                                </t>
+                                                <t t-set="optional_gpa" t-value="get_gpa(student,exam,'optional')"/>
+                                                <td>
+                                                    <t t-esc="optional_obtained_total"/>
+                                                    <t t-set="marksFromAdditional" t-value="optional_obtained_total-(optional_total*40)/100"/>
+                                                </td><td></td><td></td><td></td><td></td><td></td>
+                                            </t>
+                                        </tr>
+
+                                        <tr><td colspan="16">Total Marks with Additional Subject:(percentage of total mark With Additional Subject:<t t-esc="round((optional_obtained_total-(optional_total*40/100)+exam_obtained_total)/exam_total*100,2)"/>%)</td>
+                                            <td><t t-esc="marksFromAdditional + exam_obtained_total"/> </td><td colspan="3"></td><td ><t t-esc="optional_gpa-2"/></td><td></td></tr>
+                                    <tr><td colspan="22">Continuous Assesment</td></tr>
+                                        <tr>
+                                            <td >Physical Training</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td >Career Education</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </table>
+
+                                </div>
+
+
+                                <div class="row">
+                                   <div class="left_top">Position in order to Section</div>
+                                   <div class="left_top">Date Of Return</div>
+                                </div>
+                                <div class="row">
+                                   <div class="left_top">Position in order to Class</div>
+                                </div>
+                                <div class="row" width="100%">
+                                   <div class="left_top" width="33%">Signature of Class Teacher</div>
+                                   <div class="left_top">Signature of The Principal</div>
+                                   <div class="left_top">Signature of The Guardian</div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

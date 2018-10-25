@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="report_exam_evaluation">
+            <t t-call="web.html_container">
+                <t t-foreach="get_sections(docs)" t-as="section">
+                <t t-set="subjects" t-value="get_subjects(section,docs)"/>
+
+                     <t t-call="web.external_layout">
+                        <t t-set="exam_list" t-value="get_exams(docs)" />
+                         <t t-set="exam_count" t-value="0"/>
+                         <t t-foreach="exam_list" t-as="exam">
+                             <t t-set="exam_count" t-value="exam_count+1"/>
+                         </t>
+                        <style>
+                            table, th, td {
+                                     border: 1px solid black;
+                                    padding-bottom:3px;
+                                    padding-left:3px;
+                                    padding-top:3px;
+                                    padding-right:3px;
+                                    }
+                            .right_top{
+                            float:right;
+                            padding-top:0px;
+                            }
+                            .left_top{
+                            float:left;
+                            padding-top:0px;
+                            }
+                            .center_top{
+                            float:left;
+                            padding-top:0px;
+                            padding-left:500px;
+                            }
+                            .right{
+                            float:right;
+                            padding-top:10px;
+                            }
+                        </style>
+                        <div class="page">
+                            <div class="oe_structure">
+                                <div class="center_top">
+                                    <t t-foreach="exam_list" t-as="exam">
+
+                                        <t t-if="exam_last" >
+                                            <span t-field="exam.exam_type"/> <span > Examination Evaluation</span>
+                                        </t>
+                                        <t t-else="">
+                                            <span t-field="exam.exam_type"/> <span>,</span>
+                                        </t>
+                                    </t>
+                                </div>
+                                <div class="row">
+                                    <div class="left_top">
+                                        <span t-field="section.class_id.name"/>
+                                    </div>
+                                    <div class="center_top">
+                                        <span t-field="section.display"/>
+                                    </div>
+                                    <div class="right_top">
+                                        <t t-if="section.division_id">
+                                           <span>Group : </span>
+                                            <span t-field="section.division_id.name"/>
+                                        </t>
+                                        <t t-else="">
+                                            <span> Group: N/A</span>
+                                        </t>
+                                    </div>
+                                    <table width="100%">
+                                    <t t-foreach="get_students(section)" t-as="student">
+                                        <t t-if="student_first">
+                                            <tr><td rowspan="2">ID</td><td rowspan="2">Roll</td><td rowspan="2">Name</td><td rowspan="2">Exam</td>
+                                            <t t-foreach="subjects" t-as="subject">
+                                                        <td colspan="6"><span t-field="subject.display" /> </td>
+                                                    </t>
+                                            </tr>
+                                            <tr>
+                                                <t t-foreach="subjects" t-as="subject">
+                                                <td>Tut</td>
+                                                <td>Sub</td>
+                                                <td>Obj</td>
+                                                <td>Prac</td>
+                                                <td>Total</td>
+                                                <td>LG</td>
+
+                                                </t>
+                                            </tr>
+                                        </t>
+                                        <tr>
+                                            <td t-att-rowspan="exam_count">
+                                                <span t-field="student.student_id" />
+                                            </td>
+                                            <td t-att-rowspan="exam_count">
+                                                <span t-field="student.roll_no" />
+                                            </td>
+                                            <td t-att-rowspan="exam_count">
+                                                <span t-field="student.name" />
+                                            </td>
+                                            <t t-foreach="exam_list" t-as="exam">
+                                                <t t-set="exam_total" t-value="0"/>
+                                                <t t-if="exam_first">
+                                                    <td><span t-field="exam.exam_type"/> </td>
+                                                    <t t-foreach="subjects" t-as="subject">
+                                                        <t t-foreach="get_marks(exam,subject,student)" t-as="mark">
+                                                            <td><t t-esc="mark.tut_mark" /></td>
+                                                            <td><t t-esc="mark.subj_mark" /></td>
+                                                            <td><t t-esc="mark.obj_mark" /></td>
+                                                            <td><t t-esc="mark.prac_mark" /></td>
+                                                            <td><t t-esc="mark.mark_scored" /></td>
+                                                            <t t-set="exam_total" t-value="exam_total + mark.mark_scored"/>
+                                                            <td><t t-esc="mark.letter_grade" /></td>
+                                                        </t>
+                                                    </t><span> &lt;/tr &gt;</span>
+
+                                                </t>
+                                                <t t-else="">
+                                                    <tr>
+                                                    <td><span t-field="exam.exam_type"/> </td>
+                                                        <t t-foreach="subjects" t-as="subject">
+                                                        <t t-foreach="get_marks(exam,subject,student)" t-as="mark">
+                                                            <td><t t-esc="mark.tut_mark" /></td>
+                                                            <td><t t-esc="mark.subj_mark" /></td>
+                                                            <td><t t-esc="mark.obj_mark" /></td>
+                                                            <td><t t-esc="mark.prac_mark" /></td>
+                                                            <td><t t-esc="mark.mark_scored" /></td>
+                                                            <t t-set="exam_total" t-value="exam_total + mark.mark_scored"/>
+                                                            <td><t t-esc="mark.letter_grade" /></td>
+                                                            <t t-if="subject_last" >
+                                                                <td><t t-esc="exam_total" /></td>
+                                                                <td>GPA</td>
+                                                            </t>
+                                                        </t>
+                                                    </t>
+                                                    </tr>
+                                                </t>
+                                            </t>
+                                        </tr>
+                                    </t>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                     </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>
+
